@@ -1,5 +1,6 @@
 package com.projectAPI.projectAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,7 +23,12 @@ public class Users {
     private Integer age;
 
     @OneToMany(mappedBy = "executor")
-    List<Task> tasks;
+    @JsonBackReference
+    private List<Task> tasks;
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    private List<UsersProjects> userProjects;
 
     public Long getId() {
         return id;

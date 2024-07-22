@@ -1,5 +1,6 @@
 package com.projectAPI.projectAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,12 +15,14 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "project_id")
+    @JsonManagedReference
     private Project project;
 
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "executor_id")
+    @JsonManagedReference
     private Users executor;
 
     private Date createDate;
@@ -30,6 +33,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "status_id")
+    @JsonManagedReference
     private StatusTask statusTask;
 
     public Long getId() {

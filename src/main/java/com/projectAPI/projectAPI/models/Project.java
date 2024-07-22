@@ -1,12 +1,10 @@
 package com.projectAPI.projectAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -26,7 +24,12 @@ public class Project {
     private String client;
 
     @OneToMany(mappedBy = "project")
+    @JsonBackReference
     private List<Task> tasks;
+
+    @OneToMany(mappedBy = "project")
+    @JsonBackReference
+    private List<UsersProjects> usersProject;
 
     public Long getId() {
         return id;

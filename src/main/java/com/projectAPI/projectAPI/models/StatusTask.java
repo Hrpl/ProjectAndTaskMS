@@ -1,5 +1,6 @@
 package com.projectAPI.projectAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,5 +20,6 @@ public class StatusTask {
 
 
     @OneToMany(mappedBy = "statusTask")
+    @JsonBackReference
     List<Task> tasks;
 }
