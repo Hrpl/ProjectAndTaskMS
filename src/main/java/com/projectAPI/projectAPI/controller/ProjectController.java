@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/ps")
-
+@CrossOrigin(origins = "*")
 public class ProjectController {
 
     @Autowired
@@ -33,21 +33,14 @@ public class ProjectController {
         this.usersProjectsRepository = usersProjectsRepository;
     }
 
-    @GetMapping("")
-    Iterable<Project> findAll(){
-        var proj = projectRerository.findAll();
-        return proj;
-    }
-
-    @GetMapping("/findByUser/{login}")
+    @GetMapping("/findByUser/{login}/")
     Iterable<Project> findByUser(@PathVariable String login){
         var user = userRepository.findFirstByLogin(login).get(); // сначало ищется пользователь с таким логином
 
-        var userprojects = usersProjectsRepository.findAllByUserId(user.getId()).get(); // находятся все записи о том, в каких проектах участвует этот пользователь
+        var userprojects = usersProjectsRepository.findProjectIdByUserId(user.getId()); // находятся все id проектов, в каких участвует этот пользователь
 
-        return userprojects.stream()
-                .filter(obj -> obj.getProject() instanceof Project)
-                .map(UsersProjects::getProject)
-                .collect(Collectors.toList()); //извлекаются все проекты пользователя
+        var projects = projectRerository.findALlByIdIn(userprojects).get(); // находит эти проекты по списку id
+
+        return projects;
     }
 }

@@ -1,6 +1,7 @@
 package com.projectAPI.projectAPI.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,12 +24,14 @@ public class Project {
 
     private String client;
 
-    @OneToMany(mappedBy = "project")
-    @JsonBackReference
+    private String status;
+
+    @OneToMany(mappedBy = "project_id")
+    @JsonIgnore
     private List<Task> tasks;
 
     @OneToMany(mappedBy = "project")
-    @JsonBackReference
+    @JsonIgnore
     private List<UsersProjects> usersProject;
 
     public Long getId() {
@@ -78,4 +81,13 @@ public class Project {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
+

@@ -1,9 +1,9 @@
 package com.projectAPI.projectAPI.models;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -15,21 +15,39 @@ public class Users {
     private Long id;
 
     private String name;
+    private String surname;
 
     private String login;
 
     private String password;
 
-    private Integer age;
+    private LocalDate birthday;
 
     @OneToMany(mappedBy = "executor")
-    @JsonBackReference
+    @JsonIgnore
     private List<Task> tasks;
 
+
     @OneToMany(mappedBy = "user")
-    @JsonBackReference
+    @JsonIgnore
     private List<UsersProjects> userProjects;
 
+
+    public List<UsersProjects> getUserProjects() {
+        return userProjects;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setUserProjects(List<UsersProjects> userProjects) {
+        this.userProjects = userProjects;
+    }
     public Long getId() {
         return id;
     }
@@ -62,12 +80,12 @@ public class Users {
         this.password = password;
     }
 
-    public Integer getAge() {
-        return age;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public List<Task> getTasks() {

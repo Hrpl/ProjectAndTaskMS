@@ -1,6 +1,7 @@
 package com.projectAPI.projectAPI.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -38,11 +39,9 @@ public class UsersProjects {
 
     @ManyToOne
     @JoinColumn(name= "user_id")
-    @JsonManagedReference
     private Users user;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
-    @JsonManagedReference
     private Project project;
 }
